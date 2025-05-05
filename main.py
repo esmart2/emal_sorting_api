@@ -16,10 +16,16 @@ app = FastAPI(title="Email Sorter API")
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
+    allow_origins=[
+        "https://email-sorting-app.onrender.com",
+        "http://localhost:3000",  # For local development
+        "http://localhost:5173"   # Vite default port
+    ],
     allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allow_headers=["Content-Type", "Authorization", "X-Google-Token", "X-Google-Refresh", "Accept"],
+    expose_headers=["Content-Type", "Authorization"],
+    max_age=86400,  # Preflight cache duration - 24 hours
 )
 
 # Add session middleware for OAuth flow
